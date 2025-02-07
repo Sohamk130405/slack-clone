@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Id } from "../../convex/_generated/dataModel";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { Loader } from "lucide-react";
-
+import ConversationHero from "./conversation-hero";
 
 interface MessageListProps {
   memberName?: string;
@@ -91,10 +91,13 @@ const MessageList = ({
                   threadCount={message.threadCount}
                   threadImage={message.threadImage}
                   threadTimestamp={message.threadTimestamp}
+                  threadName={message.threadName}
                   isEditing={editingId === message._id}
                   setEditingId={setEditingId}
                   isCompact={isCompact}
-                  hideThreadButton={variant === "thread"}
+                  hideThreadButton={
+                    variant === "thread" || variant === "conversation"
+                  }
                 />
               ) : null;
             })}
@@ -128,6 +131,9 @@ const MessageList = ({
       )}
       {variant === "channel" && channelName && channelCreationTime && (
         <ChannelHero name={channelName} creationTime={channelCreationTime} />
+      )}
+      {variant === "conversation" && (
+        <ConversationHero name={memberName} image={memberImage} />
       )}
     </div>
   );

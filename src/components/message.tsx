@@ -14,6 +14,7 @@ import useConfirm from "@/hooks/use-confirm";
 import { useToggleReactions } from "@/features/reactions/api/use-toggle-reactions";
 import Reactions from "./reactions";
 import { usePanel } from "@/hooks/use-panel";
+import ThreadBar from "./thread-bar";
 
 const Renderer = dynamic(() => import("@/components/renderer"), { ssr: false });
 const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
@@ -36,6 +37,7 @@ interface MessageProps {
   updatedAt: Doc<"messages">["updatedAt"];
   threadCount?: number;
   threadImage?: string;
+  threadName?: string;
   threadTimestamp?: number;
   isEditing: boolean;
   isCompact?: boolean;
@@ -61,6 +63,7 @@ const Message = ({
   threadCount,
   threadImage,
   threadTimestamp,
+  threadName,
   isEditing,
   setEditingId,
   isCompact,
@@ -74,7 +77,7 @@ const Message = ({
 
   const { mutate: toggleReaction } = useToggleReactions();
 
-  const { parentMessageId, onOpenMessage, onClose } = usePanel();
+  const { parentMessageId, onOpenMessage, onOpenProfile, onClose } = usePanel();
 
   const handleReaction = (value: string) => {
     toggleReaction(
@@ -171,6 +174,13 @@ const Message = ({
                   <span className="text-xs text-muted-foreground">Edited</span>
                 ) : null}
                 <Reactions data={reactions} onChange={handleReaction} />
+                <ThreadBar
+                  count={threadCount}
+                  image={threadImage}
+                  timestamp={threadTimestamp}
+                  name={threadName}
+                  onClick={() => onOpenMessage(id)}
+                />
               </div>
             )}
           </div>
@@ -201,10 +211,10 @@ const Message = ({
         )}
       >
         <div className="flex items-start gap-2">
-          <button>
-            <Avatar className="size-6 rounded-md mr-1">
+          <button onClick={() => onOpenProfile(memberId)}>
+            <Avatar className="size-8 rounded-md mr-1">
               <AvatarImage src={authorImage} />
-              <AvatarFallback className="bg-sky-500 text-white text-xs">
+              <AvatarFallback className="bg-sky-500 text-white text-xs rounded-md">
                 {authorName.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -222,7 +232,10 @@ const Message = ({
           ) : (
             <div className="flex flex-col items-start w-full overflow-hidden">
               <div className="text-sm">
-                <button className="font-bold text-primary hover:underline">
+                <button
+                  onClick={() => onOpenProfile(memberId)}
+                  className="font-bold text-primary hover:underline"
+                >
                   {authorName}
                 </button>
                 <span>&nbsp;&nbsp;</span>
@@ -238,6 +251,13 @@ const Message = ({
                 <span className="text-xs text-muted-foreground">Edited</span>
               ) : null}
               <Reactions data={reactions} onChange={handleReaction} />
+              <ThreadBar
+                count={threadCount}
+                image={threadImage}
+                timestamp={threadTimestamp}
+                name={threadName}
+                onClick={() => onOpenMessage(id)}
+              />
             </div>
           )}
         </div>

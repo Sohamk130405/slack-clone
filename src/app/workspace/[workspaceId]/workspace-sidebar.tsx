@@ -16,12 +16,15 @@ import { useGetMembers } from "@/features/members/api/use-get-members";
 import UserItem from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
 import { useChannelId } from "@/hooks/use-channel-id";
+import { useMemberId } from "@/hooks/use-member-id";
 
 const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
   const channelId = useChannelId();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = useCreateChannelModal();
+
+  const memberId = useMemberId();
   const { data: channels, isLoading: channelsLoading } = useGetChannels({
     workspaceId,
   });
@@ -86,6 +89,7 @@ const WorkspaceSidebar = () => {
       <WorkspaceSection label="Direct Messages" hint="New DM" onNew={() => {}}>
         {members?.map((item) => (
           <UserItem
+            variant={item._id === memberId ? "active" : "default"}
             key={item._id}
             image={item.user.image as string}
             label={item.user.name as string}
