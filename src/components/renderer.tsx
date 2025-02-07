@@ -21,6 +21,7 @@ const Renderer = ({ value }: RendererProps) => {
     const contents = JSON.parse(value);
     quill.setContents(contents);
     const checkIsEmpty =
+      isEmpty ||
       quill
         .getText()
         .replace(/<(.|\n)*?>/g, "")
@@ -33,7 +34,7 @@ const Renderer = ({ value }: RendererProps) => {
     return () => {
       if (container) container.innerHTML = "";
     };
-  }, [value]);
+  }, [value, isEmpty]);
   return <div ref={rendererRef} className="ql-editor ql-renderer" />;
 };
 
