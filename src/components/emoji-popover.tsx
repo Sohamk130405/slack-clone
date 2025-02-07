@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode, useState } from "react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import {
