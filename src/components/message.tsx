@@ -9,7 +9,7 @@ import MessageToolbar from "./message-toolbar";
 import { useUpdateMessage } from "@/features/messages/api/use-update-message";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { useRemoveMessage } from "@/features/messages/api/use-remove-message copy";
+import { useRemoveMessage } from "@/features/messages/api/use-remove-message";
 import useConfirm from "@/hooks/use-confirm";
 import { useToggleReactions } from "@/features/reactions/api/use-toggle-reactions";
 import Reactions from "./reactions";
