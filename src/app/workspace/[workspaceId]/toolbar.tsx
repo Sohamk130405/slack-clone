@@ -38,32 +38,34 @@ const Toolbar = () => {
         <CommandDialog open={open} onOpenChange={setOpen}>
           <CommandInput />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Channels">
-              {channels?.map((channel) => (
-                <CommandItem key={channel._id} asChild>
-                  <Link
-                    onClick={() => setOpen(false)}
-                    href={`/workspace/${workspaceId}/channel/${channel._id}`}
-                  >
-                    {channel.name}
-                  </Link>
-                </CommandItem>
-              ))}
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Members">
-              {members?.map((member) => (
-                <CommandItem key={member._id}>
-                  <Link
-                    onClick={() => setOpen(false)}
-                    href={`/workspace/${workspaceId}/member/${member._id}`}
-                  >
-                    {member.user.name}
-                  </Link>
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <>
+              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandGroup heading="Channels">
+                {channels?.map((channel) => (
+                  <CommandItem key={channel._id} asChild>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href={`/workspace/${workspaceId}/channel/${channel._id}`}
+                    >
+                      {channel.name}
+                    </Link>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+              <CommandSeparator />
+              <CommandGroup heading="Members">
+                {members?.map((member) => (
+                  <CommandItem key={member._id}>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      href={`/workspace/${workspaceId}/member/${member._id}`}
+                    >
+                      {member.user.name}
+                    </Link>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </>
           </CommandList>
         </CommandDialog>
       </div>
