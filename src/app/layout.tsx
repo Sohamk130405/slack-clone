@@ -6,7 +6,7 @@ import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import Modals from "@/components/modals";
 import { Toaster } from "@/components/ui/sonner";
 import JotaiProvider from "@/components/jotai-provider";
-
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,11 +35,13 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ConvexClientProvider>
-            <JotaiProvider>
-              <Toaster />
-              <Modals />
-              {children}
-            </JotaiProvider>
+            <NuqsAdapter>
+              <JotaiProvider>
+                <Toaster />
+                <Modals />
+                {children}
+              </JotaiProvider>
+            </NuqsAdapter>
           </ConvexClientProvider>
         </body>
       </html>

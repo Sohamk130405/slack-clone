@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRemoveWorkspace } from "@/features/workspaces/api/use-remove-workspace";
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
-import UseConfirm from "@/hooks/use-confirm";
+import useConfirm from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,7 @@ const PreferencesModal = ({
   const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
   const router = useRouter();
-  const [confirm, ConfirmDialog] = UseConfirm(
+  const [confirm, ConfirmDialog] = useConfirm(
     "Are you sure?",
     "This action is irreversible"
   );
