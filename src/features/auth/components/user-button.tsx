@@ -14,11 +14,12 @@ import { useAuthActions } from "@convex-dev/auth/react";
 
 const UserButton = () => {
   const { data, isLoading } = useCurrentUser();
+
   const { signOut } = useAuthActions();
   if (isLoading)
     return <Loader className="size-4 animate-spin text-muted-foreground" />;
   if (!data) return null;
-  const { image, name, email } = data;
+  const { image, name } = data;
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className="outline-none relative">
@@ -29,10 +30,11 @@ const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-60" align="center" side="right">
-        <DropdownMenuItem className="h-10">{name}</DropdownMenuItem>
-        <DropdownMenuItem className="h-10">{email}</DropdownMenuItem>
-        <DropdownMenuItem onClick={signOut} className="h-10">
+      <DropdownMenuContent className="w-40" align="center" side="right">
+        <DropdownMenuItem
+          onClick={signOut}
+          className="h-10 hover:bg-muted-foreground/10 cursor-pointer"
+        >
           <LogOut className="size-4 mr-2" />
           Logout
         </DropdownMenuItem>
